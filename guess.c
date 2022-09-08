@@ -2,10 +2,10 @@
 #include <string.h>
 #include<time.h>
 
-char id[20],pwd[20],text[50];
+char id[100],pwd[100],text[100];
 int ok = 0;
 
-int login()
+void login()
 {
     printf("登录界面\n");
     printf("ID：");
@@ -19,15 +19,14 @@ int login()
     FILE *fp = fopen("user.txt", "r");
     if(NULL == fp)
     {
-        printf("failed to open dos.txt\n");
-        return 0; 
+        printf("Failed to open user.txt!\n"); 
     }
 
     while(!feof(fp))
     {
         memset(text, 0, sizeof(text));
         fgets(text, sizeof(text) - 1, fp); 
-        if(strcmp(id,text)==0)
+        if(strcmp(id,text) == 0)
 		{
            ok=1;
            break;
@@ -48,7 +47,7 @@ int login()
 void regist()
 {
 	printf("注册界面\n");
-    FILE *fp=fopen("user.txt","a");
+    FILE *fp = fopen("user.txt","a");
     printf("ID：");
     gets(id);
     printf("PWD：");
@@ -64,25 +63,20 @@ void regist()
 void game()
 {	 
     int num = rand() % 1000;  
-    int guess, i = 0; 
-	int min = 0, max = 1000;  
+    int guess, i = 0;   
     while (1)
 	{
-    	printf("Please guess number:");
+    	printf("Please guess the number:");
         scanf("%d", &guess);
         if (num > guess)
 		{
             i++;	
             printf("猜小了\n");
-            min = guess;
-            printf("范围:%d - %d\n", min,max);
         }
 		else if (num < guess)
 		{
             i++;	
             printf("猜大了\n");
-            max = guess;
-            printf("范围:%d - %d\n", min,max);
         }
 		else
 		{
@@ -114,10 +108,12 @@ int main()
     printf("1 Play\n");
     printf("0 Exit\n");
     scanf("%d", &a);
-    switch (a){
+    switch (a)
+	{
         case 1:
         game();
         break;
+        
         case 0:
         break;
         default:
