@@ -2,7 +2,8 @@
 #include <string.h>
 #include<time.h>
 
-char id[20],pwd[20],text[50];
+char id[100],pwd[100],text[100];
+int ok = 0;
 
 //µÇÂ¼ 
 int login()
@@ -49,7 +50,16 @@ int login()
 void regist()
 {
 	printf("×¢²á½çÃæ\n");
-    
+    FILE *fp = fopen("user.txt","a");
+    printf("ID£º");
+    gets(id);
+    printf("PWD£º");
+    gets(pwd); 
+    fputs(id,fp);
+    fputs(pwd,fp);
+    fputs("\n",fp);
+    fflush(stdin);
+    fclose(fp);
     login();
 }
 
@@ -60,11 +70,10 @@ void game()
     start = clock();
     printf("runtime = %f\n",run_time);
     int num = rand() % 1000;  
-    int guess, i = 0; 
-	int min = 0, max = 1000;  
+    int guess, i = 0;   
     while (1)
 	{
-    	printf("Please guess number:");
+    	printf("Please guess the number:");
         scanf("%d", &guess);
         if (num > guess)
 		{
@@ -112,7 +121,8 @@ int main()
     printf("1 Play\n");
     printf("0 Exit\n");
     scanf("%d", &a);
-    switch (a){
+    switch (a)
+	{
         case 1:
         game();
         break;
